@@ -1,33 +1,28 @@
-import {
-  AppBar,
-  Box,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import * as React from "react"
+import { useState } from "react"
+import Header from "./Header"
+import Home from "./Home"
 
-const pages = ["Templates", "Take a tour"];
+const handleLogin = () => {
+  alert("logged in")
+}
+
+const handleWether = () => {}
 
 const App = () => {
-  return (
-    <AppBar position="fixed">
-      <Toolbar>
-        <Typography varient="h6" component="div">
-          Resume Builder
-        </Typography>
-        <Box sx={{ flexGrow: 1 }}>
-          <Menu>
-            {pages.map((page) => (
-              <MenuItem key={page}>
-                <Typography textAlign="center">{page}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-};
+  console.log("render")
+  const [comp, setComp] = useState("news")
 
-export default App;
+  const [login, setLogin] = useState()
+  const handleCallback = (compName) => {
+    setComp(compName)
+  }
+  return (
+    <div>
+      <Header handle={handleCallback}></Header>
+      <Home info={comp}></Home>
+    </div>
+  )
+}
+
+export default App

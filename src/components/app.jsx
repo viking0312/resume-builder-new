@@ -3,6 +3,8 @@ import { useState } from "react";
 import Header from "./Header";
 import Home from "./Home";
 import Http from "./Http";
+import Form from "./Form";
+import defaultSections from "./data/sections";
 
 import {
   AppBar,
@@ -42,13 +44,34 @@ const theme = createTheme({
 const pages = ["Templates", "Take a tour"];
 
 const App = () => {
+  const [progress, setProgress] = useState(0);
+  const [sections, setSections] = useState(defaultSections);
+
+  const handleProgress = (newProgress, newSections) => {
+    console.log("new sections ", newSections);
+    setProgress(newProgress);
+    setSections(newSections);
+  };
+
+  var currentPage = (
+    <Home sections={sections} handleProgress={handleProgress}></Home>
+  );
+
+  switch (progress) {
+    case 1:
+      currentPage = <Form sections={sections}></Form>;
+      break;
+
+    default:
+      currentPage = (
+        <Home sections={sections} handleProgress={handleProgress}></Home>
+      );
+  }
+
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box>
-          <Home></Home>
-          <Http></Http>
-        </Box>
+        <Box>{currentPage}</Box>
       </ThemeProvider>
     </>
   );

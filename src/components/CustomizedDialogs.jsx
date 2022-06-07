@@ -51,7 +51,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const CustomizedDialogs = (props) => {
-  const [sections, setSections] = useState(["info", "education", "experience"]);
+  const [sections, setSections] = useState(props.sections);
 
   const handleDelete = (section) => {
     console.log(section);
@@ -66,39 +66,32 @@ const CustomizedDialogs = (props) => {
 
   return (
     <BootstrapDialog
-      onClose={() => props.handleClose}
+      onClose={props.handleClose}
       aria-labelledby="customized-dialog-title"
       open={props.open}
     >
       <BootstrapDialogTitle
         id="customized-dialog-title"
-        onClose={() => props.handleClose}
+        onClose={props.handleClose}
       >
-        Modal title
+        Please select the sections for the resume
       </BootstrapDialogTitle>
+
       <DialogContent dividers>
-        {/* <Typography gutterBottom>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </Typography>
-        <Typography gutterBottom>
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-        </Typography>
-        <Typography gutterBottom>
-          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-          ullamcorper nulla non metus auctor fringilla.
-        </Typography> */}
         {sections.map((section) => {
           return (
-            <Chip label={section} variant="outlined" onDelete={handleDelete} />
+            <Chip
+              key={section}
+              label={section}
+              variant="outlined"
+              onDelete={handleDelete}
+            />
           );
         })}
       </DialogContent>
+
       <DialogActions>
-        <Button autoFocus onClick={() => props.handleClose}>
+        <Button autoFocus onClick={() => props.handleSave(sections)}>
           Save changes
         </Button>
       </DialogActions>

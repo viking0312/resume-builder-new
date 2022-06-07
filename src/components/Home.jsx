@@ -22,12 +22,21 @@ import { useState } from "react";
 
 const Home = (props) => {
   const [open, setOpen] = React.useState(false);
+  const [sections, setSections] = React.useState(props.sections);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
+    console.log("close clicked");
     setOpen(false);
+  };
+
+  const handleSave = (newSections) => {
+    console.log("save clicked");
+    setOpen(false);
+    props.handleProgress(1, newSections);
   };
 
   return (
@@ -48,7 +57,6 @@ const Home = (props) => {
             <Typography
               variant="h1"
               component="div"
-              onClick={() => props.handle("wether")}
               color="whitesmoke"
               sx={{
                 pb: 5,
@@ -69,7 +77,14 @@ const Home = (props) => {
             </Button>
           </Grid>
         </Grid>
-        <CustomizedDialogs open={open} handleClose={handleClose} />
+        <CustomizedDialogs
+          open={open}
+          handleProgress={props.handleProgress}
+          handleClose={handleClose}
+          handleSave={handleSave}
+          sections={sections}
+          setSections={setSections}
+        />
       </Box>
     </>
   );

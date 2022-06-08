@@ -12,6 +12,10 @@ import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import { Button, Grid } from "@mui/material";
+import { ActionTypes } from "@mui/base";
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -21,12 +25,12 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#784af4",
+      borderColor: theme.palette.primary.darker,
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#784af4",
+      borderColor: theme.palette.primary.darker,
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -43,10 +47,10 @@ const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   height: 22,
   alignItems: "center",
   ...(ownerState.active && {
-    color: "#784af4",
+    color: theme.palette.primary.darker,
   }),
   "& .QontoStepIcon-completedIcon": {
-    color: "#784af4",
+    color: theme.palette.primary.darker,
     zIndex: 1,
     fontSize: 18,
   },
@@ -172,17 +176,94 @@ ColorlibStepIcon.propTypes = {
 
 const Form = (props) => {
   const [steps, setSteps] = React.useState(props.sections);
+  const [activeStep, setActiveStep] = React.useState(0);
 
+  const handlePrevious = () => {
+    if (activeStep != 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
+
+  const handleNext = () => {
+    console.log(steps.length, "stepsss");
+    if (activeStep + 1 < steps.length) {
+      setActiveStep(activeStep + 1);
+    }
+  };
   return (
-    <Stack sx={{ width: "100%" }} spacing={3}>
-      <Stepper alternativeLabel activeStep={0} connector={<QontoConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Stack>
+    <Box>
+      <Stack sx={{ width: "100%" }} spacing={3}>
+        <Stepper
+          alternativeLabel
+          activeStep={activeStep}
+          connector={<QontoConnector />}
+        >
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </Stack>
+      <Grid
+        container
+        direction="column"
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item>
+          <TextField
+            required
+            id="outlined-required"
+            label="Name"
+            defaultValue="Hello World"
+          />
+        </Grid>
+
+        <Grid item>
+          <TextField
+            required
+            id="outlined-required"
+            label="Contact number"
+            defaultValue="Hello World"
+          />
+        </Grid>
+
+        <Grid item>
+          <TextField
+            required
+            id="outlined-required"
+            label="Email ID"
+            defaultValue="Hello World"
+          />
+        </Grid>
+
+        <Grid item>
+          <TextField
+            required
+            id="outlined-required"
+            label="Address"
+            defaultValue="Hello World"
+          />
+        </Grid>
+
+        <Grid item>
+          <Button
+            variant="contained"
+            onClick={handlePrevious}
+            sx={{
+              mr: 2,
+            }}
+          >
+            Previous
+          </Button>
+          <Button variant="contained" onClick={handleNext}>
+            Next
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

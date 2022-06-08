@@ -53,8 +53,10 @@ BootstrapDialogTitle.propTypes = {
 const CustomizedDialogs = (props) => {
   const [sections, setSections] = useState(props.sections);
 
-  const handleDelete = (section) => {
-    console.log(section);
+  console.log("sectionssss", sections);
+
+  const handleDelete = (section) => () => {
+    console.log(section.key);
 
     let copy = [...sections];
 
@@ -84,7 +86,7 @@ const CustomizedDialogs = (props) => {
               key={section}
               label={section}
               variant="outlined"
-              onDelete={handleDelete}
+              onDelete={handleDelete(section)}
             />
           );
         })}

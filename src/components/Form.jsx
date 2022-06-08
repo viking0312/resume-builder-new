@@ -1,21 +1,22 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
-import Stack from "@mui/material/Stack";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
-import SettingsIcon from "@mui/icons-material/Settings";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import SettingsIcon from "@mui/icons-material/Settings";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
+import { Button, Grid } from "@mui/material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Step from "@mui/material/Step";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
+import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
+import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import { Button, Grid } from "@mui/material";
-import { ActionTypes } from "@mui/base";
+import PropTypes from "prop-types";
+import * as React from "react";
+import DescForm from "./DescForm";
+import InfoForm from "./InfoForm";
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -25,12 +26,12 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.darker,
+      borderColor: theme.palette.primary.main,
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.darker,
+      borderColor: theme.palette.primary.main,
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -47,10 +48,10 @@ const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   height: 22,
   alignItems: "center",
   ...(ownerState.active && {
-    color: theme.palette.primary.darker,
+    color: theme.palette.primary.main,
   }),
   "& .QontoStepIcon-completedIcon": {
-    color: theme.palette.primary.darker,
+    color: theme.palette.primary.main,
     zIndex: 1,
     fontSize: 18,
   },
@@ -190,6 +191,31 @@ const Form = (props) => {
       setActiveStep(activeStep + 1);
     }
   };
+
+  var currentForm = <InfoForm></InfoForm>;
+
+  switch (steps[activeStep]) {
+    case "Basic information":
+      currentForm = <InfoForm></InfoForm>;
+      break;
+
+    case "Description":
+      currentForm = <DescForm></DescForm>;
+      break;
+
+    case "Education":
+
+    case "Experience":
+
+    case "Certifications":
+
+    case "Hobbies":
+
+    case "default":
+      currentForm = <InfoForm></InfoForm>;
+      break;
+  }
+
   return (
     <Box>
       <Stack sx={{ width: "100%" }} spacing={3}>
@@ -209,56 +235,24 @@ const Form = (props) => {
         container
         direction="column"
         spacing={2}
-        justifyContent="center"
         alignItems="center"
+        sx={{
+          mt: 2,
+        }}
       >
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Name"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Contact number"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Email ID"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Address"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
+        {currentForm}
         <Grid item>
           <Button
             variant="contained"
             onClick={handlePrevious}
+            color="secondary"
             sx={{
               mr: 2,
             }}
           >
             Previous
           </Button>
-          <Button variant="contained" onClick={handleNext}>
+          <Button variant="contained" onClick={handleNext} color="secondary">
             Next
           </Button>
         </Grid>

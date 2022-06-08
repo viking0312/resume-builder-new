@@ -52,8 +52,6 @@ BootstrapDialogTitle.propTypes = {
 const CustomizedDialogs = (props) => {
   const [sections, setSections] = useState(props.sections);
 
-  console.log("sectionssss", sections);
-
   const handleDelete = (section) => () => {
     console.log(section.key);
 

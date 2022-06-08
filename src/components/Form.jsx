@@ -12,7 +12,6 @@ import StepConnector, {
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
 import { styled } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import * as React from "react";
 import DescForm from "./DescForm";
@@ -176,11 +175,11 @@ ColorlibStepIcon.propTypes = {
 };
 
 const Form = (props) => {
-  const [steps, setSteps] = React.useState(props.sections);
+  const steps = props.sections;
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handlePrevious = () => {
-    if (activeStep != 0) {
+    if (activeStep !== 0) {
       setActiveStep(activeStep - 1);
     }
   };
@@ -204,14 +203,18 @@ const Form = (props) => {
       break;
 
     case "Education":
+      break;
 
     case "Experience":
+      break;
 
     case "Certifications":
+      break;
 
     case "Hobbies":
+      break;
 
-    case "default":
+    default:
       currentForm = <InfoForm></InfoForm>;
       break;
   }

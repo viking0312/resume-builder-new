@@ -27,8 +27,6 @@ const theme = createTheme({
   },
 });
 
-const pages = ["Templates", "Take a tour"];
-
 const App = () => {
   const [progress, setProgress] = useState(0);
   const [sections, setSections] = useState(defaultSections);

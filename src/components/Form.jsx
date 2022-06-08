@@ -17,10 +17,6 @@ import * as React from "react";
 import DescForm from "./DescForm";
 import InfoForm from "./InfoForm";
 
-Form.propTypes = {
-  sections: PropTypes.arrayOf(PropTypes.string),
-};
-
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
@@ -241,6 +237,10 @@ const Form = (props) => {
       </Grid>
     </Box>
   );
+};
+
+Form.propTypes = {
+  sections: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Form;

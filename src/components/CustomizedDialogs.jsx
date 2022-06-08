@@ -11,13 +11,6 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import { useState } from "react";
 
-CustomizedDialogs.propTypes = {
-  sections: PropTypes.arrayOf(PropTypes.string),
-  open: PropTypes.bool,
-  handleClose: PropTypes.func,
-  handleSave: PropTypes.func,
-};
-
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -103,6 +96,13 @@ const CustomizedDialogs = (props) => {
       </DialogActions>
     </BootstrapDialog>
   );
+};
+
+CustomizedDialogs.propTypes = {
+  sections: PropTypes.arrayOf(PropTypes.string),
+  open: PropTypes.bool,
+  handleClose: PropTypes.func,
+  handleSave: PropTypes.func,
 };
 
 export default CustomizedDialogs;

@@ -4,14 +4,13 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import { ArrowForward } from "@mui/icons-material";
 
-const Header = (props) => {
+const Header = () => {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography
           variant="h1"
           component="div"
-          onClick={() => props.handle("wether")}
           sx={{
             textAlign: "center",
             flexGrow: 1,

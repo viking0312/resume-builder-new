@@ -4,6 +4,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import CustomizedDialogs from "./CustomizedDialogs";
+import PropTypes from "prop-types";
+
+Home.propTypes = {
+  sections: PropTypes.arrayOf(PropTypes.string),
+  handleProgress: PropTypes.func,
+};
 
 const Home = (props) => {
   const [open, setOpen] = React.useState(false);

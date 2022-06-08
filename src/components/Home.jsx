@@ -6,11 +6,6 @@ import * as React from "react";
 import CustomizedDialogs from "./CustomizedDialogs";
 import PropTypes from "prop-types";
 
-Home.propTypes = {
-  sections: PropTypes.arrayOf(PropTypes.string),
-  handleProgress: PropTypes.func,
-};
-
 const Home = (props) => {
   const [open, setOpen] = React.useState(false);
   const [sections, setSections] = React.useState(props.sections);
@@ -70,7 +65,6 @@ const Home = (props) => {
         </Grid>
         <CustomizedDialogs
           open={open}
-          handleProgress={props.handleProgress}
           handleClose={handleClose}
           handleSave={handleSave}
           sections={sections}
@@ -79,6 +73,11 @@ const Home = (props) => {
       </Box>
     </>
   );
+};
+
+Home.propTypes = {
+  sections: PropTypes.arrayOf(PropTypes.string),
+  handleProgress: PropTypes.func,
 };
 
 export default Home;

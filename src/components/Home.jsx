@@ -1,24 +1,15 @@
-import * as React from "react";
+import { ArrowForwardIosOutlined } from "@mui/icons-material";
+import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
-import { Button, Grid } from "@mui/material";
-import {
-  ArrowForward,
-  ArrowForwardIos,
-  ArrowForwardIosOutlined,
-  ArrowForwardIosRounded,
-} from "@mui/icons-material";
-
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+import * as React from "react";
 import CustomizedDialogs from "./CustomizedDialogs";
-import { useState } from "react";
+import PropTypes from "prop-types";
+
+Home.propTypes = {
+  sections: PropTypes.arrayOf(PropTypes.string),
+  handleProgress: PropTypes.func,
+};
 
 const Home = (props) => {
   const [open, setOpen] = React.useState(false);

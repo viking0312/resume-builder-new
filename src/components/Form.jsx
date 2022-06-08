@@ -1,21 +1,25 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
-import Stack from "@mui/material/Stack";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
-import SettingsIcon from "@mui/icons-material/Settings";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import SettingsIcon from "@mui/icons-material/Settings";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
+import { Button, Grid } from "@mui/material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Step from "@mui/material/Step";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import { Button, Grid } from "@mui/material";
-import { ActionTypes } from "@mui/base";
+import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
+import { styled } from "@mui/material/styles";
+import PropTypes from "prop-types";
+import * as React from "react";
+import DescForm from "./DescForm";
+import InfoForm from "./InfoForm";
+
+Form.propTypes = {
+  sections: PropTypes.arrayOf(PropTypes.string),
+};
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -25,12 +29,12 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.darker,
+      borderColor: theme.palette.primary.main,
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.darker,
+      borderColor: theme.palette.primary.main,
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -47,10 +51,10 @@ const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   height: 22,
   alignItems: "center",
   ...(ownerState.active && {
-    color: theme.palette.primary.darker,
+    color: theme.palette.primary.main,
   }),
   "& .QontoStepIcon-completedIcon": {
-    color: theme.palette.primary.darker,
+    color: theme.palette.primary.main,
     zIndex: 1,
     fontSize: 18,
   },
@@ -89,31 +93,6 @@ QontoStepIcon.propTypes = {
    */
   completed: PropTypes.bool,
 };
-
-const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 22,
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    height: 3,
-    border: 0,
-    backgroundColor:
-      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
-    borderRadius: 1,
-  },
-}));
 
 const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   backgroundColor:
@@ -175,11 +154,11 @@ ColorlibStepIcon.propTypes = {
 };
 
 const Form = (props) => {
-  const [steps, setSteps] = React.useState(props.sections);
+  const steps = props.sections;
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handlePrevious = () => {
-    if (activeStep != 0) {
+    if (activeStep !== 0) {
       setActiveStep(activeStep - 1);
     }
   };
@@ -190,6 +169,35 @@ const Form = (props) => {
       setActiveStep(activeStep + 1);
     }
   };
+
+  var currentForm = <InfoForm></InfoForm>;
+
+  switch (steps[activeStep]) {
+    case "Basic information":
+      currentForm = <InfoForm></InfoForm>;
+      break;
+
+    case "Description":
+      currentForm = <DescForm></DescForm>;
+      break;
+
+    case "Education":
+      break;
+
+    case "Experience":
+      break;
+
+    case "Certifications":
+      break;
+
+    case "Hobbies":
+      break;
+
+    default:
+      currentForm = <InfoForm></InfoForm>;
+      break;
+  }
+
   return (
     <Box>
       <Stack sx={{ width: "100%" }} spacing={3}>
@@ -209,56 +217,24 @@ const Form = (props) => {
         container
         direction="column"
         spacing={2}
-        justifyContent="center"
         alignItems="center"
+        sx={{
+          mt: 2,
+        }}
       >
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Name"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Contact number"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Email ID"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
-        <Grid item>
-          <TextField
-            required
-            id="outlined-required"
-            label="Address"
-            defaultValue="Hello World"
-          />
-        </Grid>
-
+        {currentForm}
         <Grid item>
           <Button
             variant="contained"
             onClick={handlePrevious}
+            color="secondary"
             sx={{
               mr: 2,
             }}
           >
             Previous
           </Button>
-          <Button variant="contained" onClick={handleNext}>
+          <Button variant="contained" onClick={handleNext} color="secondary">
             Next
           </Button>
         </Grid>

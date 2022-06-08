@@ -1,25 +1,10 @@
+import { Box, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import * as React from "react";
 import { useState } from "react";
-import Header from "./Header";
-import Home from "./Home";
-import Http from "./Http";
-import Form from "./Form";
 import defaultSections from "./data/sections";
-
-import {
-  AppBar,
-  Box,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
-
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@mui/material";
+import Form from "./Form";
+import Home from "./Home";
 
 const theme = createTheme({
   status: {
@@ -27,7 +12,8 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#009688",
+      // main: "#009688",
+      main: "#004d40",
       darker: "#004d40",
     },
     secondary: {
@@ -40,8 +26,6 @@ const theme = createTheme({
     },
   },
 });
-
-const pages = ["Templates", "Take a tour"];
 
 const App = () => {
   const [progress, setProgress] = useState(0);

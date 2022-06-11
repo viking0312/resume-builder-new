@@ -152,6 +152,14 @@ ColorlibStepIcon.propTypes = {
 const Form = (props) => {
   const steps = props.sections;
   const [activeStep, setActiveStep] = React.useState(0);
+  const [values, setValues] = React.useState({
+    name: "",
+    contantNumber: "",
+    email: "",
+    address: "",
+  });
+
+  console.log(values);
 
   const handlePrevious = () => {
     if (activeStep !== 0) {
@@ -166,15 +174,19 @@ const Form = (props) => {
     }
   };
 
+  const handleSubmit = (values) => {
+    console.log(values);
+  };
+
   var currentForm = <InfoForm></InfoForm>;
 
   switch (steps[activeStep]) {
     case "Basic information":
-      currentForm = <InfoForm></InfoForm>;
+      currentForm = <InfoForm setValues={setValues}></InfoForm>;
       break;
 
     case "Description":
-      currentForm = <DescForm></DescForm>;
+      currentForm = <DescForm setValues={setValues}></DescForm>;
       break;
 
     case "Education":
@@ -209,32 +221,34 @@ const Form = (props) => {
           ))}
         </Stepper>
       </Stack>
-      <Grid
-        container
-        direction="column"
-        spacing={2}
-        alignItems="center"
-        sx={{
-          mt: 2,
-        }}
-      >
-        {currentForm}
-        <Grid item>
-          <Button
-            variant="contained"
-            onClick={handlePrevious}
-            color="secondary"
-            sx={{
-              mr: 2,
-            }}
-          >
-            Previous
-          </Button>
-          <Button variant="contained" onClick={handleNext} color="secondary">
-            Next
-          </Button>
+      <form onSubmit={handleSubmit(values)}>
+        <Grid
+          container
+          direction="column"
+          spacing={2}
+          alignItems="center"
+          sx={{
+            mt: 2,
+          }}
+        >
+          {currentForm}{" "}
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={handlePrevious}
+              color="secondary"
+              sx={{
+                mr: 2,
+              }}
+            >
+              Previous
+            </Button>
+            <Button variant="contained" onClick={handleNext} color="secondary">
+              Next
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </form>
     </Box>
   );
 };

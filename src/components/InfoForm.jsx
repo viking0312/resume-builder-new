@@ -3,6 +3,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const InfoForm = (props) => {
+  // const values = props.values;
+  // const setValues = props.setValues;
   const { values, setValues } = props;
   return (
     <>

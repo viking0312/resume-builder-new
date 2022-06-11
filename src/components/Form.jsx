@@ -157,6 +157,7 @@ const Form = (props) => {
     contantNumber: "",
     email: "",
     address: "",
+    description: ""
   });
 
   console.log(values);
@@ -182,11 +183,11 @@ const Form = (props) => {
 
   switch (steps[activeStep]) {
     case "Basic information":
-      currentForm = <InfoForm setValues={setValues}></InfoForm>;
+      currentForm = <InfoForm values={values} setValues={setValues}></InfoForm>;
       break;
 
     case "Description":
-      currentForm = <DescForm setValues={setValues}></DescForm>;
+      currentForm = <DescForm values={values} setValues={setValues}></DescForm>;
       break;
 
     case "Education":

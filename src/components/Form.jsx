@@ -152,12 +152,13 @@ ColorlibStepIcon.propTypes = {
 const Form = (props) => {
   const steps = props.sections;
   const [activeStep, setActiveStep] = React.useState(0);
+  const [nextDisabled, setNextDisabled] = React.useState(true);
   const [values, setValues] = React.useState({
     name: "",
     contantNumber: "",
     email: "",
     address: "",
-    description: ""
+    description: "",
   });
 
   console.log(values);
@@ -183,11 +184,23 @@ const Form = (props) => {
 
   switch (steps[activeStep]) {
     case "Basic information":
-      currentForm = <InfoForm values={values} setValues={setValues}></InfoForm>;
+      currentForm = (
+        <InfoForm
+          values={values}
+          setValues={setValues}
+          setNextDisabled={setNextDisabled}
+        ></InfoForm>
+      );
       break;
 
     case "Description":
-      currentForm = <DescForm values={values} setValues={setValues}></DescForm>;
+      currentForm = (
+        <DescForm
+          values={values}
+          setValues={setValues}
+          setNextDisabled={setNextDisabled}
+        ></DescForm>
+      );
       break;
 
     case "Education":
@@ -244,7 +257,12 @@ const Form = (props) => {
             >
               Previous
             </Button>
-            <Button variant="contained" onClick={handleNext} color="secondary">
+            <Button
+              disabled={nextDisabled}
+              variant="contained"
+              onClick={handleNext}
+              color="secondary"
+            >
               Next
             </Button>
           </Grid>

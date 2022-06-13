@@ -161,8 +161,6 @@ const Form = (props) => {
     description: "",
   });
 
-  console.log(values);
-
   const handlePrevious = () => {
     if (activeStep !== 0) {
       setActiveStep(activeStep - 1);
@@ -170,7 +168,6 @@ const Form = (props) => {
   };
 
   const handleNext = () => {
-    console.log(steps.length, "stepsss");
     if (activeStep + 1 < steps.length) {
       setActiveStep(activeStep + 1);
     }

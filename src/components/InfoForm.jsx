@@ -4,11 +4,28 @@ import PropTypes from "prop-types";
 
 const InfoForm = (props) => {
   const { values, setValues, setNextDisabled } = props;
+  const [formError, setFormError] = React.useState({
+    name: {
+      isErrored: false,
+      errorMessage: "",
+    },
+    email: {
+      isErrored: false,
+      errorMessage: "",
+    },
+    contactNumber: {
+      isErrored: false,
+      errorMessage: "",
+    },
+    address: {
+      isErrored: false,
+      errorMessage: "",
+    },
+  });
 
   var localVal = { ...values };
 
   const handleValidation = () => {
-    console.log("maulik", values.address);
     setNextDisabled(true);
     if (
       localVal.name !== "" &&
@@ -22,26 +39,127 @@ const InfoForm = (props) => {
   };
 
   const setNameValue = (e) => {
-    setValues({ ...values, name: e.target.value });
-    localVal = { ...values, name: e.target.value };
+    var val = e.target.value;
+    setValues({ ...values, name: val });
+    localVal = { ...values, name: val };
+    if (!val) {
+      setFormError({
+        ...formError,
+        name: {
+          isErrored: true,
+          errorMessage: "Invalid name",
+        },
+      });
+    } else {
+      setFormError({
+        ...formError,
+        name: {
+          isErrored: false,
+          errorMessage: "",
+        },
+      });
+    }
     handleValidation();
   };
 
   const setEmailValue = (e) => {
-    setValues({ ...values, email: e.target.value });
-    localVal = { ...values, email: e.target.value };
+    var val = e.target.value;
+    setValues({ ...values, email: val });
+    localVal = { ...values, email: val };
+
+    if (val) {
+      if (
+        val
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          )
+      ) {
+        setFormError({
+          ...formError,
+          email: {
+            isErrored: false,
+            errorMessage: "",
+          },
+        });
+      } else {
+        setFormError({
+          ...formError,
+          email: {
+            isErrored: true,
+            errorMessage: "Invalid email",
+          },
+        });
+      }
+    } else {
+      setFormError({
+        ...formError,
+        email: {
+          isErrored: true,
+          errorMessage: "Invalid email",
+        },
+      });
+    }
     handleValidation();
   };
 
   const setAddressValue = (e) => {
-    setValues({ ...values, address: e.target.value });
-    localVal = { ...values, address: e.target.value };
+    var val = e.target.value;
+    setValues({ ...values, address: val });
+    localVal = { ...values, address: val };
+
+    if (!val) {
+      setFormError({
+        ...formError,
+        address: {
+          isErrored: true,
+          errorMessage: "Invalid address",
+        },
+      });
+    } else {
+      setFormError({
+        ...formError,
+        address: {
+          isErrored: false,
+          errorMessage: "",
+        },
+      });
+    }
     handleValidation();
   };
 
   const setContactNumberValue = (e) => {
-    setValues({ ...values, contantNumber: e.target.value });
-    localVal = { ...values, contantNumber: e.target.value };
+    var val = e.target.value;
+    setValues({ ...values, contantNumber: val });
+    localVal = { ...values, contantNumber: val };
+
+    if (val) {
+      if (val.match(/^[1-9]+[0-9]*$/) && val.length === 10) {
+        setFormError({
+          ...formError,
+          contactNumber: {
+            isErrored: false,
+            errorMessage: "",
+          },
+        });
+      } else {
+        setFormError({
+          ...formError,
+          contactNumber: {
+            isErrored: true,
+            errorMessage: "Invalid contact number",
+          },
+        });
+      }
+    } else {
+      setFormError({
+        ...formError,
+        contactNumber: {
+          isErrored: true,
+          errorMessage: "Invalid contact number",
+        },
+      });
+    }
     handleValidation();
   };
   return (
@@ -49,41 +167,49 @@ const InfoForm = (props) => {
       <Grid item>
         <TextField
           required
+          error={formError.name.isErrored}
           id="outlined-required"
           label="Name"
           type="text"
           onChange={(e) => setNameValue(e)}
           defaultValue=""
+          helperText={formError.name.errorMessage}
         />
       </Grid>
       <Grid item>
         <TextField
           required
+          error={formError.contactNumber.isErrored}
           id="outlined-required"
           label="Contact number"
           type="tel"
           onChange={(e) => setContactNumberValue(e)}
           defaultValue=""
+          helperText={formError.contactNumber.errorMessage}
         />
       </Grid>
       <Grid item>
         <TextField
           required
+          error={formError.email.isErrored}
           type="email"
           id="outlined-required"
           label="Email ID"
           onChange={(e) => setEmailValue(e)}
           defaultValue=""
+          helperText={formError.email.errorMessage}
         />
       </Grid>
       <Grid item>
         <TextField
           required
+          error={formError.address.isErrored}
           type="text"
           id="outlined-required"
           label="Address"
           onChange={(e) => setAddressValue(e)}
           defaultValue=""
+          helperText={formError.address.errorMessage}
         />
       </Grid>
     </>

@@ -23,20 +23,28 @@ const InfoForm = (props) => {
     },
   });
 
+  var isErrored =
+    formError.name.isErrored ||
+    formError.email.isErrored ||
+    formError.contactNumber.isErrored ||
+    formError.address.isErrored;
+
+  console.log("isErroredd", isErrored);
+
   var localVal = { ...values };
 
-  const handleValidation = () => {
+  //disable-enable logic for next button
+  if (
+    localVal.name !== "" &&
+    localVal.contantNumber !== "" &&
+    localVal.email !== "" &&
+    localVal.address !== "" &&
+    !isErrored
+  ) {
+    setNextDisabled(false);
+  } else {
     setNextDisabled(true);
-    if (
-      localVal.name !== "" &&
-      localVal.contantNumber !== "" &&
-      localVal.email !== "" &&
-      localVal.address !== ""
-      // typeof values.contantNumber == "number"
-    ) {
-      setNextDisabled(false);
-    }
-  };
+  }
 
   const setNameValue = (e) => {
     var val = e.target.value;
@@ -59,7 +67,6 @@ const InfoForm = (props) => {
         },
       });
     }
-    handleValidation();
   };
 
   const setEmailValue = (e) => {
@@ -100,7 +107,6 @@ const InfoForm = (props) => {
         },
       });
     }
-    handleValidation();
   };
 
   const setAddressValue = (e) => {
@@ -125,7 +131,6 @@ const InfoForm = (props) => {
         },
       });
     }
-    handleValidation();
   };
 
   const setContactNumberValue = (e) => {
@@ -160,7 +165,6 @@ const InfoForm = (props) => {
         },
       });
     }
-    handleValidation();
   };
   return (
     <>

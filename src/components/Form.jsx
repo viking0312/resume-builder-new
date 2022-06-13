@@ -152,6 +152,14 @@ ColorlibStepIcon.propTypes = {
 const Form = (props) => {
   const steps = props.sections;
   const [activeStep, setActiveStep] = React.useState(0);
+  const [nextDisabled, setNextDisabled] = React.useState(true);
+  const [values, setValues] = React.useState({
+    name: "",
+    contantNumber: "",
+    email: "",
+    address: "",
+    description: "",
+  });
 
   const handlePrevious = () => {
     if (activeStep !== 0) {
@@ -160,21 +168,36 @@ const Form = (props) => {
   };
 
   const handleNext = () => {
-    console.log(steps.length, "stepsss");
     if (activeStep + 1 < steps.length) {
       setActiveStep(activeStep + 1);
     }
+  };
+
+  const handleSubmit = (values) => {
+    console.log(values);
   };
 
   var currentForm = <InfoForm></InfoForm>;
 
   switch (steps[activeStep]) {
     case "Basic information":
-      currentForm = <InfoForm></InfoForm>;
+      currentForm = (
+        <InfoForm
+          values={values}
+          setValues={setValues}
+          setNextDisabled={setNextDisabled}
+        ></InfoForm>
+      );
       break;
 
     case "Description":
-      currentForm = <DescForm></DescForm>;
+      currentForm = (
+        <DescForm
+          values={values}
+          setValues={setValues}
+          setNextDisabled={setNextDisabled}
+        ></DescForm>
+      );
       break;
 
     case "Education":
@@ -209,32 +232,39 @@ const Form = (props) => {
           ))}
         </Stepper>
       </Stack>
-      <Grid
-        container
-        direction="column"
-        spacing={2}
-        alignItems="center"
-        sx={{
-          mt: 2,
-        }}
-      >
-        {currentForm}
-        <Grid item>
-          <Button
-            variant="contained"
-            onClick={handlePrevious}
-            color="secondary"
-            sx={{
-              mr: 2,
-            }}
-          >
-            Previous
-          </Button>
-          <Button variant="contained" onClick={handleNext} color="secondary">
-            Next
-          </Button>
+      <form onSubmit={handleSubmit(values)}>
+        <Grid
+          container
+          direction="column"
+          spacing={2}
+          alignItems="center"
+          sx={{
+            mt: 2,
+          }}
+        >
+          {currentForm}{" "}
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={handlePrevious}
+              color="secondary"
+              sx={{
+                mr: 2,
+              }}
+            >
+              Previous
+            </Button>
+            <Button
+              disabled={nextDisabled}
+              variant="contained"
+              onClick={handleNext}
+              color="secondary"
+            >
+              Next
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </form>
     </Box>
   );
 };

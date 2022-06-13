@@ -5,14 +5,17 @@ import PropTypes from "prop-types";
 const InfoForm = (props) => {
   const { values, setValues, setNextDisabled } = props;
 
+  var localVal = { ...values };
+
   const handleValidation = () => {
-    console.log("maulik", values);
+    console.log("maulik", values.address);
+    setNextDisabled(true);
     if (
-      values.name !== "" &&
-      values.contantNumber !== "" &&
-      values.email !== "" &&
-      values.address !== "" &&
-      typeof values.contantNumber == "number"
+      localVal.name !== "" &&
+      localVal.contantNumber !== "" &&
+      localVal.email !== "" &&
+      localVal.address !== ""
+      // typeof values.contantNumber == "number"
     ) {
       setNextDisabled(false);
     }
@@ -20,21 +23,25 @@ const InfoForm = (props) => {
 
   const setNameValue = (e) => {
     setValues({ ...values, name: e.target.value });
+    localVal = { ...values, name: e.target.value };
     handleValidation();
   };
 
   const setEmailValue = (e) => {
     setValues({ ...values, email: e.target.value });
+    localVal = { ...values, email: e.target.value };
     handleValidation();
   };
 
   const setAddressValue = (e) => {
     setValues({ ...values, address: e.target.value });
+    localVal = { ...values, address: e.target.value };
     handleValidation();
   };
 
   const setContactNumberValue = (e) => {
     setValues({ ...values, contantNumber: e.target.value });
+    localVal = { ...values, contantNumber: e.target.value };
     handleValidation();
   };
   return (

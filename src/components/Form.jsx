@@ -1,22 +1,22 @@
-import Check from "@mui/icons-material/Check";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import SettingsIcon from "@mui/icons-material/Settings";
-import VideoLabelIcon from "@mui/icons-material/VideoLabel";
-import { Button, Grid } from "@mui/material";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Step from "@mui/material/Step";
+import Check from "@mui/icons-material/Check"
+import GroupAddIcon from "@mui/icons-material/GroupAdd"
+import SettingsIcon from "@mui/icons-material/Settings"
+import VideoLabelIcon from "@mui/icons-material/VideoLabel"
+import { Button, Grid } from "@mui/material"
+import Box from "@mui/material/Box"
+import Stack from "@mui/material/Stack"
+import Step from "@mui/material/Step"
 import StepConnector, {
   stepConnectorClasses,
-} from "@mui/material/StepConnector";
-import StepLabel from "@mui/material/StepLabel";
-import Stepper from "@mui/material/Stepper";
-import { styled } from "@mui/material/styles";
-import PropTypes from "prop-types";
-import * as React from "react";
-import DescForm from "./DescForm";
-import EduForm from "./EduForm";
-import InfoForm from "./InfoForm";
+} from "@mui/material/StepConnector"
+import StepLabel from "@mui/material/StepLabel"
+import Stepper from "@mui/material/Stepper"
+import { styled } from "@mui/material/styles"
+import PropTypes from "prop-types"
+import * as React from "react"
+import DescForm from "./DescForm"
+import EduForm from "./EduForm"
+import InfoForm from "./InfoForm"
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -40,7 +40,7 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
     borderTopWidth: 3,
     borderRadius: 1,
   },
-}));
+}))
 
 const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   color: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#eaeaf0",
@@ -61,10 +61,10 @@ const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
     borderRadius: "50%",
     backgroundColor: "currentColor",
   },
-}));
+}))
 
 function QontoStepIcon(props) {
-  const { active, completed, className } = props;
+  const { active, completed, className } = props
 
   return (
     <QontoStepIconRoot ownerState={{ active }} className={className}>
@@ -74,7 +74,7 @@ function QontoStepIcon(props) {
         <div className="QontoStepIcon-circle" />
       )}
     </QontoStepIconRoot>
-  );
+  )
 }
 
 QontoStepIcon.propTypes = {
@@ -89,7 +89,7 @@ QontoStepIcon.propTypes = {
    * @default false
    */
   completed: PropTypes.bool,
-};
+}
 
 const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   backgroundColor:
@@ -111,16 +111,16 @@ const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
     backgroundImage:
       "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
   }),
-}));
+}))
 
 function ColorlibStepIcon(props) {
-  const { active, completed, className } = props;
+  const { active, completed, className } = props
 
   const icons = {
     1: <SettingsIcon />,
     2: <GroupAddIcon />,
     3: <VideoLabelIcon />,
-  };
+  }
 
   return (
     <ColorlibStepIconRoot
@@ -129,7 +129,7 @@ function ColorlibStepIcon(props) {
     >
       {icons[String(props.icon)]}
     </ColorlibStepIconRoot>
-  );
+  )
 }
 
 ColorlibStepIcon.propTypes = {
@@ -148,12 +148,12 @@ ColorlibStepIcon.propTypes = {
    * The label displayed in the step icon.
    */
   icon: PropTypes.node,
-};
+}
 
 const Form = (props) => {
-  const steps = props.sections;
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [nextDisabled, setNextDisabled] = React.useState(true);
+  const steps = props.sections
+  const [activeStep, setActiveStep] = React.useState(0)
+  const [nextDisabled, setNextDisabled] = React.useState(true)
   const [values, setValues] = React.useState({
     name: "",
     contantNumber: "",
@@ -162,25 +162,27 @@ const Form = (props) => {
     description: "",
     degree: "",
     university: "",
-  });
+    startYear: 2022,
+    endYear: 2022,
+  })
 
   const handlePrevious = () => {
     if (activeStep !== 0) {
-      setActiveStep(activeStep - 1);
+      setActiveStep(activeStep - 1)
     }
-  };
+  }
 
   const handleNext = () => {
     if (activeStep + 1 < steps.length) {
-      setActiveStep(activeStep + 1);
+      setActiveStep(activeStep + 1)
     }
-  };
+  }
 
   const handleSubmit = (values) => {
-    console.log(values);
-  };
+    console.log(values)
+  }
 
-  var currentForm = <InfoForm></InfoForm>;
+  var currentForm = <InfoForm></InfoForm>
 
   switch (steps[activeStep]) {
     case "Basic information":
@@ -190,8 +192,8 @@ const Form = (props) => {
           setValues={setValues}
           setNextDisabled={setNextDisabled}
         ></InfoForm>
-      );
-      break;
+      )
+      break
 
     case "Description":
       currentForm = (
@@ -200,8 +202,8 @@ const Form = (props) => {
           setValues={setValues}
           setNextDisabled={setNextDisabled}
         ></DescForm>
-      );
-      break;
+      )
+      break
 
     case "Education":
       currentForm = (
@@ -210,21 +212,21 @@ const Form = (props) => {
           setValues={setValues}
           setNextDisabled={setNextDisabled}
         ></EduForm>
-      );
-      break;
+      )
+      break
 
     case "Experience":
-      break;
+      break
 
     case "Certifications":
-      break;
+      break
 
     case "Hobbies":
-      break;
+      break
 
     default:
-      currentForm = <InfoForm></InfoForm>;
-      break;
+      currentForm = <InfoForm></InfoForm>
+      break
   }
 
   return (
@@ -276,11 +278,11 @@ const Form = (props) => {
         </Grid>
       </form>
     </Box>
-  );
-};
+  )
+}
 
 Form.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.string),
-};
+}
 
-export default Form;
+export default Form

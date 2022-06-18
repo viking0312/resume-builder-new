@@ -15,6 +15,7 @@ import { styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import * as React from "react";
 import DescForm from "./DescForm";
+import EduForm from "./EduForm";
 import InfoForm from "./InfoForm";
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -159,6 +160,8 @@ const Form = (props) => {
     email: "",
     address: "",
     description: "",
+    degree: "",
+    university: "",
   });
 
   const handlePrevious = () => {
@@ -201,6 +204,13 @@ const Form = (props) => {
       break;
 
     case "Education":
+      currentForm = (
+        <EduForm
+          values={values}
+          setValues={setValues}
+          setNextDisabled={setNextDisabled}
+        ></EduForm>
+      );
       break;
 
     case "Experience":

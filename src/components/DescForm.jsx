@@ -1,16 +1,18 @@
 import React from "react";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
 const DescForm = (props) => {
+  var minCharValue = 20;
   const { values, setValues, setNextDisabled } = props;
   if (values.description == "" || values.description.length < 20) {
+    minCharValue = minCharValue - values.description.length;
     setNextDisabled(true);
   } else {
+    minCharValue = 0;
     setNextDisabled(false);
   }
   const setDescValue = (e) => {
-    console.log(e);
     var val = e.target.value;
     setValues({ ...values, description: val });
   };
@@ -34,6 +36,10 @@ const DescForm = (props) => {
           style={{ width: "500px" }}
           //helperText={formError.description.errorMessage}
         />
+        <Typography fontSize={14} fontFamily="-moz-initial" textAlign="right">
+          {" "}
+          Minimum {minCharValue} more char required
+        </Typography>
       </Grid>
     </>
   );
